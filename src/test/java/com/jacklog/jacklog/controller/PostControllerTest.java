@@ -8,8 +8,8 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+
 @WebMvcTest
 class PostControllerTest {
 
@@ -23,7 +23,7 @@ class PostControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"title\": \"\", \"content\":\"내용입니다\"}"))
                 .andExpect(status().isOk())
-                .andExpect(content().string("{\"title\":\"must not be blank\"}"));
+                .andExpect(jsonPath("$.title").value("제목을 입력하세요"));
     }
 
     @Test

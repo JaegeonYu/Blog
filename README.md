@@ -9,6 +9,7 @@
     - [x] receive to Request Body
 - [ ] POST 데이터 콘텐츠 타입
   - [x] @NotBlank, @Valid 활용 BingdingResult
+  - [ ] @NotBlank Message 변환
   - [ ] @ControllerAdvice 활용 ErrorController
 - [ ] 데이터 검증
 - [ ] 게시글 저장 구현(POST)

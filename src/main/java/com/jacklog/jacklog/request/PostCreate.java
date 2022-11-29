@@ -6,7 +6,7 @@ import javax.validation.constraints.NotBlank;
 
 @Getter
 public class PostCreate {
-    @NotBlank
+    @NotBlank(message = "제목을 입력하세요")
     private String title;
     private String content;
 
