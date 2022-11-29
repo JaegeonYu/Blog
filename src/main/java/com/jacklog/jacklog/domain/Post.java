@@ -1,6 +1,7 @@
 package com.jacklog.jacklog.domain;
 
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
@@ -10,6 +11,7 @@ import javax.persistence.Lob;
 
 @Entity
 @NoArgsConstructor
+@Getter
 public class Post {
     @Id
     @GeneratedValue

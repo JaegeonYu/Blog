@@ -16,7 +16,7 @@ public class PostService {
     public void write(PostCreate postCreate){
         Post post = Post.builder()
                 .title(postCreate.getTitle())
-                .content(postCreate.getTitle()).build();
+                .content(postCreate.getContent()).build();
         postRepository.save(post);
     }
 

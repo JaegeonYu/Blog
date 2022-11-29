@@ -1,5 +1,6 @@
 package com.jacklog.jacklog.controller;
 
+import com.jacklog.jacklog.domain.Post;
 import com.jacklog.jacklog.repository.PostRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -59,6 +60,10 @@ class PostControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().string(""));
         Assertions.assertEquals(postRepository.count(),1L);
+
+        Post post = postRepository.findAll().get(0);
+        Assertions.assertEquals(post.getTitle(), "제목입니다");
+        Assertions.assertEquals(post.getContent(), "내용입니다");
     }
 
 }
