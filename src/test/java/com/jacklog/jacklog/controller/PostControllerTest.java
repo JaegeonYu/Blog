@@ -21,8 +21,18 @@ class PostControllerTest {
     public void test() throws Exception{
         mockMvc.perform(post("/posts")
                         .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"title\": \"\", \"content\":\"내용입니다\"}"))
+                .andExpect(status().isOk())
+                .andExpect(content().string("{\"title\":\"must not be blank\"}"));
+    }
+
+    @Test
+    @DisplayName("/posts 요청시 valid에 따라 Map 반환")
+    public void test2() throws Exception{
+        mockMvc.perform(post("/posts")
+                        .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"title\": \"제목입니다\", \"content\":\"내용입니다\"}"))
                 .andExpect(status().isOk())
-                .andExpect(content().string("hello world"));
+                .andExpect(content().string("{}"));
     }
 }
