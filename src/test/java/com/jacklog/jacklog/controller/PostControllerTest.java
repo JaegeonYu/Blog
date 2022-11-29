@@ -2,6 +2,7 @@ package com.jacklog.jacklog.controller;
 
 import com.jacklog.jacklog.repository.PostRepository;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,10 @@ class PostControllerTest {
 
     @Autowired
     private PostRepository postRepository;
-
+    @BeforeEach
+    public void beforeEach(){
+        postRepository.deleteAll();
+    }
     @Test
     @DisplayName("/posts 요청시 hello world 출력")
     public void test() throws Exception{
