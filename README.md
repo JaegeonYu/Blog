@@ -8,6 +8,8 @@
     - [x] request param 체크
     - [x] receive to Request Body
 - [ ] POST 데이터 콘텐츠 타입
+  - [ ] @NotBlank, @Valid 활용
+  - [ ] @ControllerAdvice 활용 ErrorController
 - [ ] 데이터 검증
 - [ ] 게시글 저장 구현(POST)
 - [ ] 응답 클래스 분리
