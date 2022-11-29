@@ -7,13 +7,14 @@
 - [x] 컨트롤러 생성
     - [x] request param 체크
     - [x] receive to Request Body
-- [ ] POST 데이터 콘텐츠 타입
+- [x] POST 데이터 콘텐츠 타입
+- [x] 데이터 검증
   - [x] @NotBlank, @Valid 활용 BingdingResult
   - [x] @NotBlank Message 변환
   - [x] @ControllerAdvice 활용 ErrorController
-  - [x] Exception 클래스 분리
-- [ ] 데이터 검증
+   - [x] Exception 클래스 분리
 - [ ] 게시글 저장 구현(POST)
+  - [ ] Repository, Service, Domain(Entity) 구현
 - [ ] 응답 클래스 분리
 - [ ] 게시글 조회 구현(GET)
 - [ ] 게시글 여러개 조회 구현(GET+LIST)
