@@ -5,7 +5,8 @@
 ## 블로그 기본 API
 - [x] 프로젝트 생성
 - [x] 컨트롤러 생성
-    -[x] request param 체크
+    - [x] request param 체크
+    - [x] receive to Request Body
 - [ ] POST 데이터 콘텐츠 타입
 - [ ] 데이터 검증
 - [ ] 게시글 저장 구현(POST)
