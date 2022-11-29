@@ -17,14 +17,7 @@ import java.util.Map;
 @Slf4j
 public class PostController {
     @PostMapping("/posts")
-    public Map<String, String> post(@RequestBody @Valid PostCreate postCreate, BindingResult result){
-        if(result.hasErrors()){
-            List<FieldError> fieldErrors = result.getFieldErrors();
-            FieldError fieldError = fieldErrors.get(0);
-            Map<String, String> map = new HashMap<>();
-            map.put(fieldError.getField(), fieldError.getDefaultMessage());
-            return map;
-        }
+    public Map<String, String> post(@RequestBody @Valid PostCreate postCreate){
         return Map.of();
     }
 
