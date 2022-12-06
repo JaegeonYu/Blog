@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jacklog.jacklog.domain.Post;
 import com.jacklog.jacklog.repository.PostRepository;
 import com.jacklog.jacklog.request.PostCreate;
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -14,6 +15,9 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+
+import java.util.List;
+import java.util.regex.Matcher;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -91,6 +95,30 @@ class PostControllerTest {
                 .andExpect(jsonPath("$.id").value(post.getId()))
                 .andDo(print());
 
+    }
+
+    @Test
+    @DisplayName("컨트롤러 게시글 여러개 조회 테스트")
+    public void $NAME() throws Exception{
+        //given
+        Post post = Post.builder()
+                .title("title1")
+                .content("content1")
+                .build();
+        Post post2 = Post.builder()
+                .title("title2")
+                .content("content2")
+                .build();
+        postRepository.saveAll(List.of(post, post2));
+        //when
+
+
+        //then
+        mockMvc.perform(get("/posts")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.length()").value(Matchers.is(2)))
+                .andDo(print());
     }
 
 }
