@@ -1,5 +1,6 @@
 package com.jacklog.jacklog.service;
 
+import com.jacklog.jacklog.domain.Post;
 import com.jacklog.jacklog.repository.PostRepository;
 import com.jacklog.jacklog.request.PostCreate;
 import org.junit.jupiter.api.Assertions;
@@ -31,4 +32,20 @@ class PostServiceTest {
         Assertions.assertEquals(1L, postRepository.count());
     }
 
+
+    @Test
+    @DisplayName("글 조회 테스트")
+    public void test2() throws Exception{
+        //given
+        Post requestPost = Post.builder()
+                .title("foo")
+                .content("bar")
+                .build();
+        //when
+        postRepository.save(requestPost);
+        //then
+        Post post = postService.get(requestPost.getId());
+        Assertions.assertEquals(post.getTitle(), requestPost.getTitle());
+        Assertions.assertEquals(post.getContent(), requestPost.getContent());
+    }
 }
