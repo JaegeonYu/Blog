@@ -24,6 +24,8 @@
 - [ ] 게시글 조회 구현(GET)
   - [ ] Exception Message Enum Class 생성
 - [ ] 게시글 여러개 조회 구현(GET+LIST)
+  - [ ] getList 메서드 서비스, 컨트롤러에 구현
+  - [ ] h2 db 연결을 위한 application.yml 세팅
 - [ ] 페이징 처리
 - [ ] 게시글 수정
 - [ ] 게시글 삭제
