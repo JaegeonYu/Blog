@@ -18,7 +18,7 @@
   - [x] PostRequestDTO Construct add @Builder
   - [x] use ObjectMapper object to json string
   - [x] Controller단에서 조회글 저장 확인
-  - [ ] Service단에서 조회글 저장 확인
+  - [x] Service단에서 조회글 저장 확인
 - [ ] 응답 클래스 분리
 - [ ] 게시글 조회 구현(GET)
 - [ ] 게시글 여러개 조회 구현(GET+LIST)
