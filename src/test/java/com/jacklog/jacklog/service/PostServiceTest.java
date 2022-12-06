@@ -3,6 +3,7 @@ package com.jacklog.jacklog.service;
 import com.jacklog.jacklog.domain.Post;
 import com.jacklog.jacklog.repository.PostRepository;
 import com.jacklog.jacklog.request.PostCreate;
+import com.jacklog.jacklog.response.PostResponse;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -44,8 +45,22 @@ class PostServiceTest {
         //when
         postRepository.save(requestPost);
         //then
-        Post post = postService.get(requestPost.getId());
+        PostResponse post = postService.get(requestPost.getId());
         Assertions.assertEquals(post.getTitle(), requestPost.getTitle());
         Assertions.assertEquals(post.getContent(), requestPost.getContent());
+    }
+    @Test
+    @DisplayName("응답 클래스 분리 테스트")
+    public void test3() throws Exception{
+        //given
+        Post requestPost = Post.builder()
+                .title("012345678912345")
+                .content("bar")
+                .build();
+        //when
+        postRepository.save(requestPost);
+        //then
+        PostResponse response = postService.get(requestPost.getId());
+        Assertions.assertEquals(response.getTitle(), "0123456789");
     }
 }

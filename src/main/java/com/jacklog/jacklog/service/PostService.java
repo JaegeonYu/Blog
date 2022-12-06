@@ -4,6 +4,7 @@ import com.jacklog.jacklog.domain.Post;
 import com.jacklog.jacklog.message.ErrorMessage;
 import com.jacklog.jacklog.repository.PostRepository;
 import com.jacklog.jacklog.request.PostCreate;
+import com.jacklog.jacklog.response.PostResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -23,8 +24,13 @@ public class PostService {
         postRepository.save(post);
     }
 
-    public Post get(Long id){
-        return postRepository.findById(id)
-                .orElseThrow(()-> new IllegalArgumentException(POST_NOT_EXIST.getMessage()));
+    public PostResponse get(Long id){
+        Post post = postRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException(POST_NOT_EXIST.getMessage()));
+        PostResponse response = PostResponse.builder()
+                .title(post.getTitle())
+                .content(post.getContent())
+                .build();
+        return response;
     }
 }
