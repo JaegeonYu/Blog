@@ -15,9 +15,9 @@
    - [x] Exception 클래스 분리
 - [ ] 게시글 저장 구현(POST)
   - [x] Repository, Service, Domain(Entity) 구현
-  - [ ] PostRequestDTO Construct add @Builder
-  - [ ] use ObjectMapper object to json string
-  - [ ] Controller단에서 조회글 저장 확인
+  - [x] PostRequestDTO Construct add @Builder
+  - [x] use ObjectMapper object to json string
+  - [x] Controller단에서 조회글 저장 확인
   - [ ] Service단에서 조회글 저장 확인
 - [ ] 응답 클래스 분리
 - [ ] 게시글 조회 구현(GET)

@@ -1,7 +1,9 @@
 package com.jacklog.jacklog.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jacklog.jacklog.domain.Post;
 import com.jacklog.jacklog.repository.PostRepository;
+import com.jacklog.jacklog.request.PostCreate;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -54,9 +56,16 @@ class PostControllerTest {
     @Test
     @DisplayName("/posts 요청시 저장")
     public void test3() throws Exception{
+        PostCreate request = PostCreate.builder()
+                .title("제목입니다")
+                .content("내용입니다")
+                .build();
+        ObjectMapper objectMapper = new ObjectMapper();
+        String requestJson = objectMapper.writeValueAsString(request);
+
         mockMvc.perform(post("/posts")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"title\": \"제목입니다\", \"content\":\"내용입니다\"}"))
+                        .content(requestJson))
                 .andExpect(status().isOk())
                 .andExpect(content().string(""));
         Assertions.assertEquals(postRepository.count(),1L);
