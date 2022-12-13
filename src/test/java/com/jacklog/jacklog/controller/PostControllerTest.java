@@ -18,6 +18,8 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
 import java.util.regex.Matcher;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -99,7 +101,7 @@ class PostControllerTest {
 
     @Test
     @DisplayName("컨트롤러 게시글 여러개 조회 테스트")
-    public void $NAME() throws Exception{
+    public void test5() throws Exception{
         //given
         Post post = Post.builder()
                 .title("title1")
@@ -118,6 +120,22 @@ class PostControllerTest {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.length()").value(Matchers.is(2)))
+                .andDo(print());
+    }
+    @Test
+    @DisplayName("게시글 조회 페이지")
+    public void test6() throws Exception {
+        List<Post> requestPosts = IntStream.range(1,31)
+                .mapToObj(i->Post.builder()
+                        .title("Bebe title " + i)
+                        .content("content "+ i)
+                        .build())
+                .collect(Collectors.toList());
+        postRepository.saveAll(requestPosts);
+
+        mockMvc.perform(get("/posts?page=1&sort=id,desc"
+                ).contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
                 .andDo(print());
     }
 

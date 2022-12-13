@@ -1,20 +1,18 @@
 package com.jacklog.jacklog.service;
 
 import com.jacklog.jacklog.domain.Post;
-import com.jacklog.jacklog.message.ErrorMessage;
 import com.jacklog.jacklog.repository.PostRepository;
 import com.jacklog.jacklog.request.PostCreate;
 import com.jacklog.jacklog.response.PostResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.jacklog.jacklog.message.ErrorMessage.*;
+import static com.jacklog.jacklog.message.ErrorMessage.POST_NOT_EXIST;
 
 @Service
 @Slf4j
@@ -39,8 +37,7 @@ public class PostService {
         return response;
     }
 
-    public List<PostResponse> getList(int page){
-        PageRequest pageable = PageRequest.of(page, 5, Sort.by(Sort.Direction.DESC,"id" ));
+    public List<PostResponse> getList(Pageable pageable){
         return postRepository.findAll(pageable).stream()
                 .map(PostResponse::new)
                 .collect(Collectors.toList());

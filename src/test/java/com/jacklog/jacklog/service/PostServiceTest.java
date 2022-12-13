@@ -9,6 +9,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -82,7 +84,8 @@ class PostServiceTest {
         postRepository.save(post);
         postRepository.save(post2);
         //when
-        List<PostResponse> responses = postService.getList(1);
+        PageRequest page = PageRequest.of(0, 5, Sort.Direction.DESC,"id");
+        List<PostResponse> responses = postService.getList(page);
 
         //then
         assertEquals(responses.size(), 2L);
@@ -97,8 +100,9 @@ class PostServiceTest {
                         .build())
                 .collect(Collectors.toList());
         postRepository.saveAll(requestPosts);
+        PageRequest page = PageRequest.of(0, 5, Sort.Direction.DESC,"id");
 
-        List<PostResponse> posts = postService.getList(0);
+        List<PostResponse> posts = postService.getList(page);
         assertEquals(5L, posts.size());
         assertEquals("Bebe title 30", posts.get(0).getTitle());
         assertEquals("Bebe title 26", posts.get(4).getTitle());
