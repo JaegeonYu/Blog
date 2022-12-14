@@ -1,28 +1,36 @@
 package com.jacklog.jacklog.service;
 
 import com.jacklog.jacklog.domain.Post;
+import com.jacklog.jacklog.message.ErrorMessage;
 import com.jacklog.jacklog.repository.PostRepository;
 import com.jacklog.jacklog.request.PostCreate;
+import com.jacklog.jacklog.request.PostEdit;
+import com.jacklog.jacklog.request.PostSearch;
 import com.jacklog.jacklog.response.PostResponse;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static com.jacklog.jacklog.message.ErrorMessage.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 @SpringBootTest
 class PostServiceTest {
     @Autowired
     private PostRepository postRepository;
     @Autowired
     private PostService postService;
+
+    @BeforeEach
+    public void clean(){
+        postRepository.deleteAll();
+    }
 
     @Test
     @DisplayName("서비스 레이어 글 작성 테스트")
@@ -73,22 +81,21 @@ class PostServiceTest {
     @DisplayName("게시글 여러개 조회 테스트")
     public void test4() throws Exception{
         //given
-        Post post = Post.builder()
-                .title("title1")
-                .content("content1")
-                .build();
-        Post post2 = Post.builder()
-                .title("title2")
-                .content("content2")
-                .build();
-        postRepository.save(post);
-        postRepository.save(post2);
+        List<Post> requestPosts = IntStream.range(0,20)
+                .mapToObj(i->Post.builder()
+                        .title("Bebe title " + i)
+                        .content("content "+ i)
+                        .build())
+                .collect(Collectors.toList());
+        postRepository.saveAll(requestPosts);
         //when
-        PageRequest page = PageRequest.of(0, 5, Sort.Direction.DESC,"id");
-        List<PostResponse> responses = postService.getList(page);
+        PostSearch postSearch = PostSearch.builder()
+                .build();
+        List<PostResponse> responses = postService.getList(postSearch);
 
         //then
-        assertEquals(responses.size(), 2L);
+        assertEquals(responses.size(), 10L);
+        assertEquals(responses.get(0).getTitle(), "Bebe title 19");
     }
     @Test
     @DisplayName("글 1페이지 조회")
@@ -100,11 +107,34 @@ class PostServiceTest {
                         .build())
                 .collect(Collectors.toList());
         postRepository.saveAll(requestPosts);
-        PageRequest page = PageRequest.of(0, 5, Sort.Direction.DESC,"id");
+        PostSearch postSearch = PostSearch.builder()
+                .page(1)
+                .size(10)
+                .build();
 
-        List<PostResponse> posts = postService.getList(page);
-        assertEquals(5L, posts.size());
+        List<PostResponse> posts = postService.getList(postSearch);
+        assertEquals(10L, posts.size());
         assertEquals("Bebe title 30", posts.get(0).getTitle());
         assertEquals("Bebe title 26", posts.get(4).getTitle());
+    }
+
+    @Test
+    @DisplayName("글 제목 수정")
+    public void tes6(){
+        Post post = Post.builder()
+                .title("bebe")
+                .content("content")
+                .build();
+
+        postRepository.save(post);
+
+        PostEdit postEdit = PostEdit.builder()
+                .title("jack")
+                .build();
+
+        postService.edit(post.getId(), postEdit);
+        Post changedPost = postRepository.findById(post.getId())
+                .orElseThrow(() -> new RuntimeException(POST_NOT_EXIST.getMessage()));
+        Assertions.assertEquals("jack",changedPost.getTitle());
     }
 }

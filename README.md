@@ -29,6 +29,11 @@
 - [ ] 페이징 처리
   - [x] Service Pageable 처리
   - [ ] Controller Pageable 처리
+  - [ ] QueryDsl import
+  - [ ] QueryDsl Config App 생성
+  - [ ] Custom Repository Interface 생성
+  - [ ] Custom Repository Impl 생성
+  - [ ] Query용 Reqeust DTO 생성
 - [ ] 게시글 수정
 - [ ] 게시글 삭제
 - [ ] 예외처리

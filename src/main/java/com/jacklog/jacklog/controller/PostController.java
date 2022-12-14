@@ -1,6 +1,7 @@
 package com.jacklog.jacklog.controller;
 
 import com.jacklog.jacklog.request.PostCreate;
+import com.jacklog.jacklog.request.PostSearch;
 import com.jacklog.jacklog.response.PostResponse;
 import com.jacklog.jacklog.service.PostService;
 import lombok.RequiredArgsConstructor;
@@ -28,8 +29,8 @@ public class PostController {
     }
 
     @GetMapping("/posts")
-    public List<PostResponse> getList(Pageable pageable){
-        return postService.getList(pageable);
+    public List<PostResponse> getList(@ModelAttribute PostSearch postSearch){
+        return postService.getList(postSearch);
     }
 
 }

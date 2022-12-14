@@ -57,7 +57,7 @@ class PostControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"title\": \"제목입니다\", \"content\":\"내용입니다\"}"))
                 .andExpect(status().isOk())
-                .andExpect(content().string("{}"));
+                .andExpect(content().string(""));
     }
     @Test
     @DisplayName("/posts 요청시 저장")
@@ -116,7 +116,7 @@ class PostControllerTest {
 
 
         //then
-        mockMvc.perform(get("/posts")
+        mockMvc.perform(get("/posts?page=1&size=10")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.length()").value(Matchers.is(2)))
@@ -133,10 +133,31 @@ class PostControllerTest {
                 .collect(Collectors.toList());
         postRepository.saveAll(requestPosts);
 
-        mockMvc.perform(get("/posts?page=1&sort=id,desc"
+        mockMvc.perform(get("/posts?page=1&size=10"
                 ).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
+                .andExpect(jsonPath("$.length()", Matchers.is(10)))
+                .andExpect(jsonPath("$[0].title").value("Bebe title 30"))
+                .andExpect(jsonPath("$[0].content").value("content 30"))
                 .andDo(print());
     }
+    @Test
+    @DisplayName("페이지 0 요청 시 첫 페이지 가져오기")
+    public void test7() throws Exception {
+        List<Post> requestPosts = IntStream.range(1,31)
+                .mapToObj(i->Post.builder()
+                        .title("Bebe title " + i)
+                        .content("content "+ i)
+                        .build())
+                .collect(Collectors.toList());
+        postRepository.saveAll(requestPosts);
 
+        mockMvc.perform(get("/posts?page=0&size=10"
+                ).contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.length()", Matchers.is(10)))
+                .andExpect(jsonPath("$[0].title").value("Bebe title 30"))
+                .andExpect(jsonPath("$[0].content").value("content 30"))
+                .andDo(print());
+    }
 }
