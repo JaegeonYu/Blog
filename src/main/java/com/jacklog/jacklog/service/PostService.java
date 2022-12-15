@@ -2,6 +2,7 @@ package com.jacklog.jacklog.service;
 
 import com.jacklog.jacklog.domain.Post;
 import com.jacklog.jacklog.domain.PostEditor;
+import com.jacklog.jacklog.exception.PostNotFound;
 import com.jacklog.jacklog.repository.PostRepository;
 import com.jacklog.jacklog.request.PostCreate;
 import com.jacklog.jacklog.request.PostEdit;
@@ -9,14 +10,11 @@ import com.jacklog.jacklog.request.PostSearch;
 import com.jacklog.jacklog.response.PostResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
-import static com.jacklog.jacklog.message.ErrorMessage.POST_NOT_EXIST;
 
 @Service
 @Slf4j
@@ -33,7 +31,7 @@ public class PostService {
 
     public PostResponse get(Long id){
         Post post = postRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException(POST_NOT_EXIST.getMessage()));
+                .orElseThrow(PostNotFound::new);
         PostResponse response = PostResponse.builder()
                 .id(post.getId())
                 .title(post.getTitle())
@@ -50,7 +48,7 @@ public class PostService {
     @Transactional
     public void edit(Long id, PostEdit postEdit){
         Post post = postRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException(POST_NOT_EXIST.getMessage()));
+                .orElseThrow(PostNotFound::new);
 
         PostEditor.PostEditorBuilder editorBuilder = post.toEditor();
         if(postEdit.getTitle() != null){
@@ -60,6 +58,11 @@ public class PostService {
             editorBuilder.content(postEdit.getContent());
         }
         post.edit(editorBuilder.build());
-        return post;
+    }
+
+    public void delete(Long id) {
+        Post post = postRepository.findById(id)
+                .orElseThrow(PostNotFound::new);
+        postRepository.delete(post);
     }
 }

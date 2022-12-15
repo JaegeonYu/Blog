@@ -1,7 +1,7 @@
 package com.jacklog.jacklog.service;
 
 import com.jacklog.jacklog.domain.Post;
-import com.jacklog.jacklog.message.ErrorMessage;
+import com.jacklog.jacklog.exception.PostNotFound;
 import com.jacklog.jacklog.repository.PostRepository;
 import com.jacklog.jacklog.request.PostCreate;
 import com.jacklog.jacklog.request.PostEdit;
@@ -18,7 +18,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import static com.jacklog.jacklog.message.ErrorMessage.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 @SpringBootTest
 class PostServiceTest {
@@ -134,7 +133,20 @@ class PostServiceTest {
 
         postService.edit(post.getId(), postEdit);
         Post changedPost = postRepository.findById(post.getId())
-                .orElseThrow(() -> new RuntimeException(POST_NOT_EXIST.getMessage()));
+                .orElseThrow(PostNotFound::new);
         Assertions.assertEquals("jack",changedPost.getTitle());
+    }
+    @Test
+    @DisplayName("글 삭제")
+    public void test7(){
+        Post post = Post.builder()
+                .title("bebe")
+                .content("content")
+                .build();
+
+        postRepository.save(post);
+
+        postService.delete(post.getId());
+        Assertions.assertEquals(postRepository.count(),0);
     }
 }
