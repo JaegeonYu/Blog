@@ -1,6 +1,8 @@
 package com.jacklog.jacklog.controller;
 
+import com.jacklog.jacklog.domain.Post;
 import com.jacklog.jacklog.request.PostCreate;
+import com.jacklog.jacklog.request.PostEdit;
 import com.jacklog.jacklog.request.PostSearch;
 import com.jacklog.jacklog.response.PostResponse;
 import com.jacklog.jacklog.service.PostService;
@@ -31,6 +33,11 @@ public class PostController {
     @GetMapping("/posts")
     public List<PostResponse> getList(@ModelAttribute PostSearch postSearch){
         return postService.getList(postSearch);
+    }
+
+    @PatchMapping("/posts/{postId}")
+    public void edit(@PathVariable Long postId, @RequestBody @Valid PostEdit postEdit){
+        postService.edit(postId, postEdit);
     }
 
 }

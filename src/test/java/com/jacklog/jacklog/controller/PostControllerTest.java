@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jacklog.jacklog.domain.Post;
 import com.jacklog.jacklog.repository.PostRepository;
 import com.jacklog.jacklog.request.PostCreate;
+import com.jacklog.jacklog.request.PostEdit;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -34,6 +35,9 @@ class PostControllerTest {
 
     @Autowired
     private PostRepository postRepository;
+
+    @Autowired
+    private  ObjectMapper objectMapper;
     @BeforeEach
     public void beforeEach(){
         postRepository.deleteAll();
@@ -158,6 +162,27 @@ class PostControllerTest {
                 .andExpect(jsonPath("$.length()", Matchers.is(10)))
                 .andExpect(jsonPath("$[0].title").value("Bebe title 30"))
                 .andExpect(jsonPath("$[0].content").value("content 30"))
+                .andDo(print());
+    }
+    @Test
+    @DisplayName("글 제목 수정")
+    public void test8() throws Exception {
+        Post post = Post.builder()
+                .title("bebe")
+                .content("content")
+                .build();
+
+        postRepository.save(post);
+
+        PostEdit postEdit = PostEdit.builder()
+                .title("jack")
+                .build();
+
+        mockMvc.perform(patch("/posts/{postId}", post.getId()
+                ).contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(postEdit)))
+                .andExpect(status().isOk())
+
                 .andDo(print());
     }
 }
