@@ -95,7 +95,7 @@ class PostControllerTest {
         //when
         postRepository.save(post);
         //then
-        mockMvc.perform(get("/posts/1")
+        mockMvc.perform(get("/posts/{postId}", post.getId())
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(post.getId()))

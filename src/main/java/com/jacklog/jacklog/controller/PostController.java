@@ -1,6 +1,5 @@
 package com.jacklog.jacklog.controller;
 
-import com.jacklog.jacklog.domain.Post;
 import com.jacklog.jacklog.request.PostCreate;
 import com.jacklog.jacklog.request.PostEdit;
 import com.jacklog.jacklog.request.PostSearch;
@@ -8,7 +7,6 @@ import com.jacklog.jacklog.response.PostResponse;
 import com.jacklog.jacklog.service.PostService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
