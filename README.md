@@ -43,8 +43,9 @@
 - [ ] 게시글 삭제
   - [ ] PostService Delete 메소드 추가
 - [ ] 예외처리
-  - [ ] IllegalArgumentException -> Exception 상속받는 클래스 생성
+  - [ ] IllegalArgumentException -> Exception 상속받는 PostNotFound 클래스 생성
   - [ ] Service 내에서 포스트가 없을 때 예외처리 추가
+  - [ ] Exception Controller PostNotFound 핸들러 추가
 
 ## 문서화
 
