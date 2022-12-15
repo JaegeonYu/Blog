@@ -28,15 +28,23 @@
   - [x] h2 db 연결을 위한 application.yml 세팅
 - [ ] 페이징 처리
   - [x] Service Pageable 처리
-  - [ ] Controller Pageable 처리
-  - [ ] QueryDsl import
-  - [ ] QueryDsl Config App 생성
-  - [ ] Custom Repository Interface 생성
-  - [ ] Custom Repository Impl 생성
-  - [ ] Query용 Reqeust DTO 생성
+  - [x] Controller Pageable 처리
+  - [x] QueryDsl import
+  - [x] QueryDsl Config App 생성
+  - [x] Custom Repository Interface 생성
+  - [x] Custom Repository Impl 생성
+  - [x] Query용 Reqeust DTO 생성
 - [ ] 게시글 수정
+  - [ ] PostEdit Request DTO 생성
+  - [ ] PostEditor Post Edit Class 생성
+  - [ ] Post 내 PostEditor 반환 메소드 추가
+  - [ ] PostService Edit 메소드 추가
+  - [ ] 수정 내용 외엔 내용 유지하게 짜기
 - [ ] 게시글 삭제
+  - [ ] PostService Delete 메소드 추가
 - [ ] 예외처리
+  - [ ] IllegalArgumentException -> Exception 상속받는 클래스 생성
+  - [ ] Service 내에서 포스트가 없을 때 예외처리 추가
 
 ## 문서화
 
