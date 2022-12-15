@@ -1,8 +1,10 @@
 package com.jacklog.jacklog.controller;
 
+import com.jacklog.jacklog.exception.JackException;
 import com.jacklog.jacklog.exception.PostNotFound;
 import com.jacklog.jacklog.response.ErrorResponse;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -28,14 +30,15 @@ public class ExceptionController {
         return response;
     }
 
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    @ExceptionHandler(PostNotFound.class)
+    @ExceptionHandler(JackException.class)
     @ResponseBody
-    public ErrorResponse postNotFound(PostNotFound e){
-        ErrorResponse response = ErrorResponse.builder()
-                .code("404")
+    public ResponseEntity<ErrorResponse> jackException(JackException e){
+        int statusCode = e.getStatusCode();
+        ErrorResponse body = ErrorResponse.builder()
+                .code(String.valueOf(e.getStatusCode()))
                 .message(e.getMessage()).
                 build();
+        ResponseEntity<ErrorResponse> response = ResponseEntity.status(statusCode).body(body);
         return response;
     }
 }

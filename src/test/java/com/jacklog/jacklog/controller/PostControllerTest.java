@@ -201,4 +201,40 @@ class PostControllerTest {
                 .andExpect(status().isOk())
                 .andDo(print());
     }
+    @Test
+    @DisplayName("컨트롤러 글 조회 예외 테스트")
+    public void test10() throws Exception{
+        //given
+        Post post = Post.builder()
+                .title("foo")
+                .content("bar")
+                .build();
+        //when
+        postRepository.save(post);
+        //then
+        mockMvc.perform(get("/posts/{postId}", post.getId()+1L)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound())
+                .andDo(print());
+    }
+
+    @Test
+    @DisplayName("컨트롤러 존재하지 않는 글 수정 테스트")
+    public void test11() throws Exception{
+        //given
+        Post post = Post.builder()
+                .title("foo")
+                .content("bar")
+                .build();
+        postRepository.save(post);
+
+        PostEdit postEdit = PostEdit.builder()
+                .title("jack")
+                .build();
+        //when
+        mockMvc.perform(patch("/posts/{postId}", post.getId()+1L
+                ).contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(postEdit)))
+                .andExpect(status().isNotFound());
+    }
 }

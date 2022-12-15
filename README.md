@@ -34,18 +34,23 @@
   - [x] Custom Repository Interface 생성
   - [x] Custom Repository Impl 생성
   - [x] Query용 Reqeust DTO 생성
-- [ ] 게시글 수정
-  - [ ] PostEdit Request DTO 생성
-  - [ ] PostEditor Post Edit Class 생성
-  - [ ] Post 내 PostEditor 반환 메소드 추가
-  - [ ] PostService Edit 메소드 추가
-  - [ ] 수정 내용 외엔 내용 유지하게 짜기
-- [ ] 게시글 삭제
-  - [ ] PostService Delete 메소드 추가
+- [x] 게시글 수정
+  - [x] PostEdit Request DTO 생성
+  - [x] PostEditor Post Edit Class 생성
+  - [x] Post 내 PostEditor 반환 메소드 추가
+  - [x] PostService Edit 메소드 추가
+  - [x] 수정 내용 외엔 내용 유지하게 짜기
+- [x] 게시글 삭제
+  - [x] PostService Delete 메소드 추가
 - [ ] 예외처리
-  - [ ] IllegalArgumentException -> Exception 상속받는 PostNotFound 클래스 생성
-  - [ ] Service 내에서 포스트가 없을 때 예외처리 추가
-  - [ ] Exception Controller PostNotFound 핸들러 추가
+  - [x] IllegalArgumentException -> Exception 상속받는 PostNotFound 클래스 생성
+  - [x] Service 내에서 포스트가 없을 때 예외처리 추가
+  - [x] Exception Controller PostNotFound 핸들러 추가
+  - [x] Controller 내에서 포스트가 없을 때 예외 처리 추가
+  - [x] ErrorResponse @JsonInclude로 null값 제외
+  - [ ] 예외처리 추상 클래스 생성 > Exception Controller mehtod 줄이기
+  - [ ] 추상 클래스 상속 > status 추가를 위해 Response Entity 사용
+  
 
 ## 문서화
 
