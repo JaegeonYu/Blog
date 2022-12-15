@@ -6,6 +6,11 @@ public class InvalidRequest extends JackException{
         super(MESSAGE);
     }
 
+    public InvalidRequest(String fieldName, String message) {
+        super(MESSAGE);
+        addValidation(fieldName, message);
+    }
+
 
     @Override
     public int getStatusCode() {

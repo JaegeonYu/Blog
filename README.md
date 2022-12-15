@@ -48,8 +48,8 @@
   - [x] Exception Controller PostNotFound 핸들러 추가
   - [x] Controller 내에서 포스트가 없을 때 예외 처리 추가
   - [x] ErrorResponse @JsonInclude로 null값 제외
-  - [ ] 예외처리 추상 클래스 생성 > Exception Controller mehtod 줄이기
-  - [ ] 추상 클래스 상속 > status 추가를 위해 Response Entity 사용
+  - [x] 예외처리 추상 클래스 생성 > Exception Controller mehtod 줄이기
+  - [x] 추상 클래스 상속 > status 추가를 위해 Response Entity 사용
   
 
 ## 문서화

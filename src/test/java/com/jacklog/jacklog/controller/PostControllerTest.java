@@ -43,14 +43,14 @@ class PostControllerTest {
         postRepository.deleteAll();
     }
     @Test
-    @DisplayName("/posts 요청시 hello world 출력")
+    @DisplayName("제목 없는 게시글 작성 테스트")
     public void test() throws Exception{
         mockMvc.perform(post("/posts")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"title\": \"\", \"content\":\"내용입니다\"}"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.code").value("400"))
-                .andExpect(jsonPath("$.message").value("잘못된 요청입니다"))
+                .andExpect(jsonPath("$.message").value("잘못된 요청입니다."))
                 .andDo(print());
     }
 

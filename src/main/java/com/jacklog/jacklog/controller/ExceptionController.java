@@ -20,11 +20,12 @@ public class ExceptionController {
     @ExceptionHandler(Exception.class)
     @ResponseBody
     public ErrorResponse exceptionHandler(MethodArgumentNotValidException e){
-        ErrorResponse response = ErrorResponse.builder()
+        ErrorResponse response = ErrorResponse.two()
                 .code("400")
                 .message("잘못된 요청입니다.").
                 build();
         for(FieldError tmp :e.getFieldErrors()){
+            System.out.println(tmp);
             response.addValidation(tmp.getField(), tmp.getDefaultMessage());
         }
         return response;
@@ -36,8 +37,9 @@ public class ExceptionController {
         int statusCode = e.getStatusCode();
         ErrorResponse body = ErrorResponse.builder()
                 .code(String.valueOf(e.getStatusCode()))
-                .message(e.getMessage()).
-                build();
+                .message(e.getMessage())
+                .validation(e.getValidation())
+                .build();
         ResponseEntity<ErrorResponse> response = ResponseEntity.status(statusCode).body(body);
         return response;
     }
