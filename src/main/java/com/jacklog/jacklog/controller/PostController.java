@@ -20,7 +20,8 @@ public class PostController {
     private final PostService postService;
     @PostMapping("/posts")
     public void post(@RequestBody @Valid PostCreate postCreate){
-       postService.write(postCreate);
+        postCreate.validate();
+        postService.write(postCreate);
     }
 
     @GetMapping("/posts/{postId}")

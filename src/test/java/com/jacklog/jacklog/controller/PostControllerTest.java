@@ -237,4 +237,21 @@ class PostControllerTest {
                         .content(objectMapper.writeValueAsString(postEdit)))
                 .andExpect(status().isNotFound());
     }
+    @Test
+    @DisplayName("게시글 작성시 제목에 '바보'는 포함될 수 없음")
+    public void test12() throws Exception{
+        //given
+        PostCreate request = PostCreate.builder()
+                .title("바보입니다")
+                .content("내용입니다")
+                .build();
+        ObjectMapper objectMapper = new ObjectMapper();
+        String requestJson = objectMapper.writeValueAsString(request);
+
+        mockMvc.perform(post("/posts")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(requestJson))
+                .andExpect(status().isBadRequest());
+
+    }
 }

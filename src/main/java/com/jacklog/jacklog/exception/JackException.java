@@ -5,9 +5,6 @@ public abstract class JackException extends RuntimeException{
         super(message);
     }
 
-    public JackException(String message, Throwable cause) {
-        super(message, cause);
-    }
 
     public abstract int getStatusCode();
 }
