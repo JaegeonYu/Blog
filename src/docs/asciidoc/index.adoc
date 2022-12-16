@@ -1,10 +1,25 @@
 = JackLog API
 :toc:
 
-== CURL
-include::{snippets}/index/curl-request.adoc[]
-== REQUEST
-include::{snippets}/index/http-request.adoc[]
-== RESPONSE
-include::{snippets}/index/http-response.adoc[]
+== 글 단건 조회
+
+=== REQUEST
+include::{snippets}/post-search/http-request.adoc[]
+=== REQUEST PARAMETER
+include::{snippets}/post-search/path-parameters.adoc[]
+=== RESPONSE
+include::{snippets}/post-search/http-response.adoc[]
+=== RESPONSE PARAMETER
+include::{snippets}/post-search/response-fields.adoc[]
+
+== 글 작성
+
+=== REQUEST
+include::{snippets}/post-create/http-request.adoc[]
+=== REQUEST PARAMETER
+include::{snippets}/post-create/request-fields.adoc[]
+=== RESPONSE
+include::{snippets}/post-create/http-response.adoc[]
+
+
 

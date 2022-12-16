@@ -57,7 +57,9 @@
 - [ ] API DOC 생성을 위한 테스트 메소드 생성
 - [ ] build bootJar copy 위치 변경
 - [ ] asciiDocs 작성
-- 
+- [ ] 기본 url 변경 / @AutoConfigureRestDocs
+- [ ] 글 조회, 등록 API 문서 작성
+- [ ] mustache > Table custom
 - 
 
 ## Vue.js
