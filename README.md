@@ -53,6 +53,12 @@
   
 
 ## 문서화
+- [ ] gradle Spring REST Docs dependency 추가, (요구 스프링 버젼 확인할 것)
+- [ ] API DOC 생성을 위한 테스트 메소드 생성
+- [ ] build bootJar copy 위치 변경
+- [ ] asciiDocs 작성
+- 
+- 
 
 ## Vue.js
 
