@@ -19,7 +19,7 @@ axios.get("/api/posts?page=1&size=5")
     <li v-for="post in posts" :key="post.id">
       <div>
         <router-link :to="{name: 'read', params:{postId: post.id}}">
-            {{ post.title }}
+          {{ post.title }}
         </router-link>
       </div>
       <div>

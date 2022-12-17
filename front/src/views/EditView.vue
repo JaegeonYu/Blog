@@ -14,17 +14,17 @@ const props = defineProps({
 const router = useRouter();
 
 const post = ref({
-  id:0,
-  title:"",
-  content:""
+  id: 0,
+  title: "",
+  content: ""
 })
 axios.get(`/api/posts/${props.postId}`).then((response) => {
   post.value = response.data;
 })
 
-const edit=()=>{
-  axios.patch(`/api/posts/${props.postId}`,post.value).then(() => {
-    router.replace({name : "home"})
+const edit = () => {
+  axios.patch(`/api/posts/${props.postId}`, post.value).then(() => {
+    router.replace({name: "home"})
   });
 };
 </script>
