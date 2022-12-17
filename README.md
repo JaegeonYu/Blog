@@ -48,21 +48,39 @@
   - [x] Exception Controller PostNotFound 핸들러 추가
   - [x] Controller 내에서 포스트가 없을 때 예외 처리 추가
   - [x] ErrorResponse @JsonInclude로 null값 제외
-  - [x] 예외처리 추상 클래스 생성 > Exception Controller mehtod 줄이기
+  - [x] 예외처리 추상 클래스 생성 > Exception Controller method 줄이기
   - [x] 추상 클래스 상속 > status 추가를 위해 Response Entity 사용
   
 
 ## 문서화
-- [ ] gradle Spring REST Docs dependency 추가, (요구 스프링 버젼 확인할 것)
-- [ ] API DOC 생성을 위한 테스트 메소드 생성
-- [ ] build bootJar copy 위치 변경
-- [ ] asciiDocs 작성
-- [ ] 기본 url 변경 / @AutoConfigureRestDocs
-- [ ] 글 조회, 등록 API 문서 작성
-- [ ] mustache > Table custom
-- 
+- [x] 기본 설정
+  - [x] gradle Spring REST Docs dependency 추가, (요구 스프링 버젼 확인할 것)
+  - [x] API DOC 생성을 위한 테스트 메소드 생성
+  - [x] build bootJar copy 위치 변경
+- [x] 요청 응답필드 생성
+  - [x] asciiDocs 작성
+  - [x] 기본 url 변경 / @AutoConfigureRestDocs
+  - [x] 글 조회, 등록 API 문서 작성
 
 ## Vue.js
+- [x] Vue 설치
+  - [x] Vue.js init, 확장 devtool install
+  - [x] router, views, components, App.vue 정리
+  - [x] Element plus, Boot strap  install
+  - [x] axios install
+- [x] 글 작성 화면 만들기
+  - [x] title, content element-plus, css apply
+  - [x] button axios apply
+- [x] CORS 해결
+  - [x] Server : Java - WebConfig CORS Mapping
+  - [x] Front : Proxy set
+- [x] 글 리스트 화면 구현
+  - [x] axios get and forEach Posts render
+  - [x] write and replace to Home
+- [x] 글 내용 화면 구현
+  - [x] ReadView, Router 추가
+  - [x] from router-link, to onMounted Props 관리
+- [x] 글 수정 화면 구현
 
 ## 배포
 
