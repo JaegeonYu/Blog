@@ -1,18 +1,30 @@
 <script setup lang="ts">
 import {ref} from "vue";
+import axios from "axios";
 
-
+const title = ref("")
+const content = ref("")
+const write =()=>{
+  axios.post("http://localhost:8080/posts", {
+    title: title.value,
+    content: content.value
+  })
+}
 
 </script>
 
 <template>
-<div>
-  <input type="text" placeholder="제목을 입력하세요"/>
-</div>
   <div>
-    <textarea rows="15"></textarea>
+    <el-input v-model="title" placeholder="제목을 입력하세요"/>
   </div>
-  <button>글 작성완료</button>
+
+  <div class="mt-2">
+    <el-input v-model="content" type="textarea" rows="15"></el-input>
+  </div>
+
+  <div class="mt-2">
+  <el-button @click="write()" type="primary">글 작성완료</el-button>
+  </div>
 </template>
 
 <style>
