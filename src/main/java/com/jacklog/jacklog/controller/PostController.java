@@ -1,5 +1,6 @@
 package com.jacklog.jacklog.controller;
 
+import com.jacklog.jacklog.config.data.UserSession;
 import com.jacklog.jacklog.request.PostCreate;
 import com.jacklog.jacklog.request.PostEdit;
 import com.jacklog.jacklog.request.PostSearch;
@@ -18,14 +19,13 @@ import java.util.List;
 public class PostController {
 
     private final PostService postService;
-
     @GetMapping("/test")
     public String test(){
-        return "hello";
+        return "인증 필요 없음";
     }
     @GetMapping("/test2")
-    public String test2(){
-        return "foo";
+    public String test2(UserSession userSession){
+        return userSession.name;
     }
     @PostMapping("/posts")
     public void post(@RequestBody @Valid PostCreate postCreate){

@@ -88,5 +88,8 @@
 - [ ] Spring Interceptor 사용
   - [x] Interceptor 구현체, WebMvcConfig 구현체 생성
   - [x] Unauthorized 예외 클래스 생성
-  - [x] WebMvcConfig 에서 exclude path 설정
-  - 
+  - [x] WebMvcConfig 에서 exclude path 설정 
+- [ ] Spring ArgumentResolver 사용 
+  - [ ] Controller 전에 request 내용을 이용해 DTO로 전달해줌
+  - [ ] WebMvcConfig 에 추가
+  - [ ] add Interceptor 주석화 => ArgumentResolver만 사용
