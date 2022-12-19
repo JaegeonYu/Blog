@@ -93,3 +93,10 @@
   - [ ] Controller 전에 request 내용을 이용해 DTO로 전달해줌
   - [ ] WebMvcConfig 에 추가
   - [ ] add Interceptor 주석화 => ArgumentResolver만 사용
+- [ ] ArgumentResolver 파라미터 인증 => 헤더 인증으로 변경
+  - [ ] Argument request getter 변경
+  - [ ] Intellij http 설정
+- [ ] 고정인증 로그인 구현
+  - [ ] Login Request DTO, User Entity, UserCRUDRepository, AuthController 생성
+  - [ ] sql.data + application.yml 테스트 시에 DB값 init
+  - 
