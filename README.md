@@ -85,3 +85,8 @@
 ## 배포
 
 ## API 인증
+- [ ] Spring Interceptor 사용
+  - [x] Interceptor 구현체, WebMvcConfig 구현체 생성
+  - [x] Unauthorized 예외 클래스 생성
+  - [x] WebMvcConfig 에서 exclude path 설정
+  - 

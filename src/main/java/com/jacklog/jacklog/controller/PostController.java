@@ -18,6 +18,15 @@ import java.util.List;
 public class PostController {
 
     private final PostService postService;
+
+    @GetMapping("/test")
+    public String test(){
+        return "hello";
+    }
+    @GetMapping("/test2")
+    public String test2(){
+        return "foo";
+    }
     @PostMapping("/posts")
     public void post(@RequestBody @Valid PostCreate postCreate){
         postCreate.validate();
