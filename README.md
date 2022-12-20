@@ -104,3 +104,6 @@
   - [x] Session Entity 생성, with User 연관관계 mapping
   - [x] Session Repository 생성
   - [x] User <--> Session 연관관계 Repository 저장
+- [x] 데이터베이스를 통한 토큰 검증
+  - [x] AuthResolver 데이터 베이스 인증추가 및 Session Repository 주입
+     

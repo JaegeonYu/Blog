@@ -2,6 +2,7 @@ package com.jacklog.jacklog.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.jacklog.jacklog.domain.Session;
 import com.jacklog.jacklog.domain.User;
 import com.jacklog.jacklog.repository.SessionRepository;
 import com.jacklog.jacklog.repository.UserRepository;
@@ -93,6 +94,53 @@ class AuthControllerTest {
                 .andExpect(jsonPath("$.accessToken", Matchers.notNullValue()));
         //then
         Assertions.assertEquals(1L, user.getSessions().size());
+    }
+
+    @Test
+    @DisplayName("로그인 안하고 권한필요 사이트 접근 /test2")
+    public void tes3() throws Exception {
+        //given
+        mockMvc.perform(get("/test2")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isUnauthorized());
+    }
+
+    @Test
+    @DisplayName("로그인 후 권한필요 페이지 접속 /test2")
+    public void tes4() throws Exception {
+        //given
+        User user = User.builder().email("yjk9805@naver.com")
+                .password("1234")
+                .name("유재건")
+                .build();
+        Session session = user.addSession();
+        userRepository.save(user);
+        //when
+
+        mockMvc.perform(get("/test2")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .header("Authorization", session.getAccessToken()))
+                .andExpect(status().isOk())
+                .andDo(print());
+    }
+
+    @Test
+    @DisplayName("로그인 후 검증되지 않은 세션값으로 권한 필요 페이지 접속불가")
+    public void tes5() throws Exception {
+        //given
+        User user = User.builder().email("yjk9805@naver.com")
+                .password("1234")
+                .name("유재건")
+                .build();
+        Session session = user.addSession();
+        userRepository.save(user);
+        //when
+
+        mockMvc.perform(get("/test2")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .header("Authorization", session.getAccessToken()+"-"))
+                .andExpect(status().isUnauthorized())
+                .andDo(print());
     }
 
 }

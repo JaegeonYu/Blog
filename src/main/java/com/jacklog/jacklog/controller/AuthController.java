@@ -22,7 +22,6 @@ public class AuthController {
     public SessionResponse login(@RequestBody LogIn login){
         String accessToken = authService.signin(login);
         return new SessionResponse(accessToken);
-
     }
 
 }

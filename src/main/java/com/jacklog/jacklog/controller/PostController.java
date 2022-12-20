@@ -24,8 +24,8 @@ public class PostController {
         return "인증 필요 없음";
     }
     @GetMapping("/test2")
-    public String test2(UserSession userSession){
-        return userSession.name;
+    public Long test2(UserSession userSession){
+        return userSession.id;
     }
     @PostMapping("/posts")
     public void post(@RequestBody @Valid PostCreate postCreate){
