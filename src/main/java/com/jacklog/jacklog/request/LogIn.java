@@ -1,5 +1,6 @@
 package com.jacklog.jacklog.request;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -15,7 +16,7 @@ public class LogIn {
     private String email;
     @NotBlank(message = "비밀번호를 입려하세요")
     private String password;
-
+    @Builder
     public LogIn(String email, String password) {
         this.email = email;
         this.password = password;

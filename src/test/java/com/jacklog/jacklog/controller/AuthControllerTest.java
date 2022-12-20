@@ -2,7 +2,13 @@ package com.jacklog.jacklog.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.jacklog.jacklog.domain.User;
+import com.jacklog.jacklog.repository.SessionRepository;
+import com.jacklog.jacklog.repository.UserRepository;
 import com.jacklog.jacklog.request.LogIn;
+import org.hamcrest.Matchers;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,10 +18,13 @@ import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import org.springframework.transaction.annotation.Transactional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
@@ -26,36 +35,64 @@ class AuthControllerTest {
     @Autowired
     ObjectMapper objectMapper;
 
+    @Autowired
+    UserRepository userRepository;
+
+    @Autowired
+    SessionRepository sessionRepository;
+
+    @BeforeEach
+    public void beforeEach() {
+        userRepository.deleteAll();
+        sessionRepository.deleteAll();
+    }
+
     @Test
-    @DisplayName("아이디 틀릴 때 테스트")
+    @DisplayName("로그인 성공 ")
     public void test() throws Exception {
-        LogIn logIn = new LogIn("a", "1234");
-        String request = objectMapper.writeValueAsString(logIn);
-        mockMvc.perform(post("/auth/login")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(request))
-                .andExpect(status().isBadRequest());
-    }
-
-    @Test
-    @DisplayName("비밀번호 틀릴 때 테스트")
-    public void test2() throws Exception {
-        LogIn logIn = new LogIn("yjk9805@naver.com", "123");
-        String request = objectMapper.writeValueAsString(logIn);
-        mockMvc.perform(post("/auth/login")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(request))
-                .andExpect(status().isBadRequest());
-    }
-
-    @Test
-    @DisplayName("인증 성공 시 테스트")
-    public void test3() throws Exception {
-        LogIn logIn = new LogIn("yjk9805@naver.com", "1234");
+        //given
+        User user = User.builder().email("yjk9805@naver.com")
+                .password("1234")
+                .name("유재건")
+                .build();
+        userRepository.save(user);
+        //when
+        LogIn logIn = LogIn.builder()
+                .email("yjk9805@naver.com")
+                .password("1234")
+                .build();
         String request = objectMapper.writeValueAsString(logIn);
         mockMvc.perform(post("/auth/login")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(request))
-                .andExpect(status().isOk());
+                .andExpect(status().isOk())
+                .andDo(print());
+
     }
+
+    @Test
+    @Transactional
+    @DisplayName("로그인 성공 후 세션토큰 1개 발급")
+    public void tes2() throws Exception {
+        //given
+        User user = User.builder().email("yjk9805@naver.com")
+                .password("1234")
+                .name("유재건")
+                .build();
+        userRepository.save(user);
+        //when
+        LogIn logIn = LogIn.builder()
+                .email("yjk9805@naver.com")
+                .password("1234")
+                .build();
+        String request = objectMapper.writeValueAsString(logIn);
+        mockMvc.perform(post("/auth/login")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(request))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.accessToken", Matchers.notNullValue()));
+        //then
+        Assertions.assertEquals(1L, user.getSessions().size());
+    }
+
 }

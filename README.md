@@ -99,4 +99,8 @@
 - [ ] 고정인증 로그인 구현
   - [ ] Login Request DTO, User Entity, UserCRUDRepository, AuthController 생성
   - [ ] sql.data + application.yml 테스트 시에 DB값 init
-  - 
+- [ ] 세션토큰 발급
+  - [x] UserService class, sign in
+  - [x] Session Entity 생성, with User 연관관계 mapping
+  - [x] Session Repository 생성
+  - [x] User <--> Session 연관관계 Repository 저장
