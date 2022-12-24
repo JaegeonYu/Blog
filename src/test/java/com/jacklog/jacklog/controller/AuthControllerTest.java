@@ -4,9 +4,11 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jacklog.jacklog.domain.Session;
 import com.jacklog.jacklog.domain.User;
+import com.jacklog.jacklog.exception.Unauthorized;
 import com.jacklog.jacklog.repository.SessionRepository;
 import com.jacklog.jacklog.repository.UserRepository;
 import com.jacklog.jacklog.request.LogIn;
+import com.jacklog.jacklog.request.SignUp;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -141,6 +143,45 @@ class AuthControllerTest {
                         .header("Authorization", session.getAccessToken()+"-"))
                 .andExpect(status().isUnauthorized())
                 .andDo(print());
+    }
+    @Test
+    @DisplayName("회원 가입 테스트")
+    public void test6() throws Exception {
+        SignUp signUp = SignUp.builder()
+                .name("hello")
+                .email("gigi@gmail.com")
+                .password("12341234")
+                .build();
+        String requestSignUp = objectMapper.writeValueAsString(signUp);
+        mockMvc.perform(post("/auth/signup")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(requestSignUp))
+                .andDo(print());
+        Assertions.assertEquals(userRepository.count(), 1);
+    }
+
+    @Test
+    @DisplayName("회원 가입 이메일 중복 테스트 throw DuplicateEmail")
+    public void test7() throws Exception {
+        //given
+        User user = User.builder()
+                .name("hello")
+                .email("gigi@gmail.com")
+                .password("12341234")
+                .build();
+        userRepository.save(user);
+        // when
+        SignUp signUp = SignUp.builder()
+                .name("hello")
+                .email("gigi@gmail.com")
+                .password("123")
+                .build();
+        String requestSignUp = objectMapper.writeValueAsString(signUp);
+        //then
+        mockMvc.perform(post("/auth/signup")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(requestSignUp))
+                .andExpect(status().isUnauthorized());
     }
 
 }

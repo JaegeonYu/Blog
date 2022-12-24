@@ -1,9 +1,7 @@
 package com.jacklog.jacklog.controller;
 
-import com.jacklog.jacklog.domain.User;
-import com.jacklog.jacklog.exception.InvalidSigninInformation;
-import com.jacklog.jacklog.repository.UserRepository;
 import com.jacklog.jacklog.request.LogIn;
+import com.jacklog.jacklog.request.SignUp;
 import com.jacklog.jacklog.response.SessionResponse;
 import com.jacklog.jacklog.service.AuthService;
 import lombok.RequiredArgsConstructor;
@@ -24,4 +22,8 @@ public class AuthController {
         return new SessionResponse(accessToken);
     }
 
+    @PostMapping("/auth/signup")
+    public void signup(@RequestBody SignUp signUp){
+        authService.signup(signUp);
+    }
 }
